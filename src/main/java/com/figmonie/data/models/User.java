@@ -1,32 +1,49 @@
 package com.figmonie.data.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collation = "users")
 public class User implements UserDetails {
     @Id
     private String id;
 
+    @Field
     private String firstName;
+
+    @Field
     private String lastName;
+
+    @Field
     private String email;
-    private String username;
+
+    @Field
     private String password;
 
+    @Field
+    private Role role;
+
     private Account account;
+    private Saving savings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.name());
+        return Collections.singletonList(simpleGrantedAuthority);
     }
 
     @Override
@@ -36,7 +53,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override
