@@ -14,14 +14,12 @@ import static com.figmonie.utils.Validator.isValidRequest;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User saveUser(RegisterRequest request) {
         isValidRequest(request);
 
         User user = map(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -31,5 +29,10 @@ public class UserServiceImpl implements UserService {
         if(user == null)
             throw new UsernameNotFoundException("User not found");
         return user;
+    }
+
+    public User findById(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

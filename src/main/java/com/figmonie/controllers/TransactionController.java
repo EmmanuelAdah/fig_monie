@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
     private final TransactionServiceImpl transactionService;
 
-    public ResponseEntity<TransactionResponse> saveTransaction(TransactionRequest request){
-        return ResponseEntity.ok(new TransactionResponse());
+    public ResponseEntity<TransactionResponse> transfer(TransactionRequest request){
+        return ResponseEntity.ok(transactionService.transfer(request));
     }
 }

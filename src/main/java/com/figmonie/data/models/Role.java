@@ -1,5 +1,5 @@
 package com.figmonie.data.models;
 
 public enum Role {
-    CUSTOMER, MANAGER, ADMIN
+    ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
 }

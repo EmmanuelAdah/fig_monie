@@ -5,6 +5,7 @@ import com.figmonie.dtos.request.LoginRequest;
 import com.figmonie.dtos.request.RegisterRequest;
 import com.figmonie.dtos.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserServiceImpl userService;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse register(RegisterRequest request) {
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         User user = userService.saveUser(request);
         String token = jwtService.generateToken(user);
 
@@ -21,7 +24,10 @@ public class AuthenticationService {
     }
 
     public UserResponse login(LoginRequest request) {
+        User user = userService.findByUsername(request.getUsername());
 
+        String token = jwtService.generateToken(user);
+        return response(user, token);
     }
 
     private UserResponse response(User user, String token) {
