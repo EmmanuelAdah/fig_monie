@@ -32,13 +32,15 @@ public class User implements UserDetails {
     private String email;
 
     @Field
+    private String image;
+
+    @Field
     private String password;
 
     @Field
     private Role role;
 
     private Account account;
-    private Saving savings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
