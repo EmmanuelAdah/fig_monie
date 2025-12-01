@@ -1,0 +1,17 @@
+#spring.application.name=fig_monie
+
+# MongoDB connection URI
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/fig_monie
+  datasource:
+    username: root
+    password: Emma007.
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+
