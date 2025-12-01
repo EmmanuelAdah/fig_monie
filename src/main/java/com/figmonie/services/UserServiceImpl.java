@@ -3,6 +3,7 @@ package com.figmonie.services;
 import com.figmonie.data.models.User;
 import com.figmonie.data.repositories.UserRepository;
 import com.figmonie.dtos.request.RegisterRequest;
+import com.figmonie.dtos.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,14 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
     public User findById(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public UserResponse updateImage(String userId, String filePath) {
+        return new UserResponse();
     }
 }
