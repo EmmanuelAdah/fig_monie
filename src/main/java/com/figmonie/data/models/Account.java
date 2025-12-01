@@ -13,7 +13,7 @@ import java.util.List;
 public class Account {
     private String accountNumber;
     private BigDecimal balance;
-    private BigDecimal savings;
+    private Saving savings;
 
     @DBRef
     private List<Transaction> transactions;
