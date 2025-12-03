@@ -1,0 +1,24 @@
+version: "3.6"
+# Docker Compose file for RabbitMQ with management UI
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.2.1-management
+    container_name: rabbitmq
+    ports:
+      # Standard AMQP protocol port
+      - "5672:5672"
+      # HTTP management UI
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # Optional: connection string for clients
+      AMQP_URL: "amqp://guest:guest@rabbitmq:5672"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
