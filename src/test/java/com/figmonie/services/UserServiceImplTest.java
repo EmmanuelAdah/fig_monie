@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.figmonie.utils.Mapper.map;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
@@ -23,7 +24,9 @@ class UserServiceImplTest {
         request.setEmail("edo@gmail.com");
         request.setPassword("12345");
 
-        User response = userService.saveUser(request);
+        User mappedUser = map(request);
+
+        User response = userService.saveUser(mappedUser);
         assertNotNull(response);
     }
 
