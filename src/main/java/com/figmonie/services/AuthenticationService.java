@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.figmonie.utils.Mapper.map;
+import static com.figmonie.utils.Validator.isValidRequest;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -17,10 +20,12 @@ public class AuthenticationService {
 
     public UserResponse register(RegisterRequest request) {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
-        User user = userService.saveUser(request);
-        String token = jwtService.generateToken(user);
+        isValidRequest(request);
 
-        return response(user, token);
+        User savedUser = userService.saveUser(map(request));
+        String token = jwtService.generateToken(savedUser);
+
+        return response(savedUser, token);
     }
 
     public UserResponse login(LoginRequest request) {
