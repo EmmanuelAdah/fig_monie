@@ -14,6 +14,7 @@ public class Account {
     private String accountNumber;
     private BigDecimal balance;
     private Saving savings;
+    private String transactionPin;
 
     @DBRef
     private List<Transaction> transactions;
