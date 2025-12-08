@@ -1,17 +1,32 @@
-#spring.application.name=fig_monie
-
-# MongoDB connection URI
 spring:
+  application:
+    name: fig_monie
+
   data:
     mongodb:
       uri: mongodb://localhost:27017/fig_monie
+
   datasource:
     username: root
     password: Emma007.
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbit
+    password: Emma007_
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# --- Custom RabbitMQ Properties for your @Value() ---
+rabbitmq:
+  queue:
+    name: javaguides
+  exchange:
+    name: javaguides_exchange
+  routing:
+    key: javaguides_routing_key
