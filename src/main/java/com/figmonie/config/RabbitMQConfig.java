@@ -23,7 +23,7 @@ public class RabbitMQConfig {
 //    Creating spring bean of queue and exchange
     @Bean
     public Queue queue() {
-        return new Queue(queue, true);
+        return new Queue(queue);
     }
 
     @Bean
