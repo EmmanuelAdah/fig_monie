@@ -10,5 +10,6 @@ public class TransactionRequest {
     private BigDecimal amount;
     private String recipientAccountNumber;
     private String recipientBank;
-    private String transactionType;
+    private String currency;
+    private String transactionPin;
 }
