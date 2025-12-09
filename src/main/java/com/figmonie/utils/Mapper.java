@@ -1,5 +1,7 @@
 package com.figmonie.utils;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.figmonie.data.models.BankAccountDetails;
 import com.figmonie.data.models.Role;
 import com.figmonie.data.models.User;
 import com.figmonie.dtos.request.RegisterRequest;
@@ -31,5 +33,13 @@ public class Mapper {
     public static TransactionResponse mapResponse(User user){
         TransactionResponse response = new TransactionResponse();
         return response;
+    }
+
+    public static BankAccountDetails mapDetails(JsonNode data, String bankCode) {
+        BankAccountDetails details = new BankAccountDetails();
+        details.setAccountName(data.get("account_name").asText());
+        details.setAccountNumber(data.get("account_number").asText());
+        details.setBankCode(bankCode);
+        return details;
     }
 }
