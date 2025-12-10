@@ -4,6 +4,7 @@ import com.figmonie.data.models.User;
 import com.figmonie.data.repositories.UserRepository;
 import com.figmonie.dtos.request.AccountRequest;
 import com.figmonie.dtos.responses.UserResponse;
+import com.figmonie.exceptions.UserAlreadyExistException;
 import com.figmonie.utils.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail()))
+            throw new UserAlreadyExistException("Email already exists");
+
         return userRepository.save(user);
     }
 
