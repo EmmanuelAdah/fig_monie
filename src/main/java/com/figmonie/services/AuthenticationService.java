@@ -4,6 +4,7 @@ import com.figmonie.data.models.User;
 import com.figmonie.dtos.request.LoginRequest;
 import com.figmonie.dtos.request.RegisterRequest;
 import com.figmonie.dtos.responses.UserResponse;
+import com.figmonie.exceptions.InvalidCredentialsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class AuthenticationService {
     public UserResponse login(LoginRequest request) {
         User user = userService.findByUsername(request.getUsername());
 
+        if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword()))
+            throw new InvalidCredentialsException("Invalid username or password");
+
         String token = jwtService.generateToken(user);
         return response(user, token);
     }
@@ -38,6 +42,7 @@ public class AuthenticationService {
     private UserResponse response(User user, String token) {
         return UserResponse.builder()
                 .token(token)
+                .id(user.getId())
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .build();
