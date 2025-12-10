@@ -18,7 +18,7 @@ public class Validator {
     }
 
     public static void isValidName(String name, String field) {
-        String regex = "^[A-Za-z]+\\${3,20}";
+        String regex = "^[A-Za-z]{2,20}$";
         boolean pattern = Pattern.matches(regex, name);
         if(!pattern)
             throw new InvalidNameFormatException("Invalid name format for " + field);
