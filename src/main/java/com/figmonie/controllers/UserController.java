@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import static com.figmonie.utils.Mapper.map;
 import static com.figmonie.utils.Validator.isValidPin;
 
-@RestController(value = "/api/user")
+@RestController
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserServiceImpl userService;
