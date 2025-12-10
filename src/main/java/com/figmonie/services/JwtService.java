@@ -26,16 +26,12 @@ public class JwtService  {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaim(String token) {
-        try {
-            return Jwts.parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private Claims extractAllClaim(String token){
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public boolean isValidToken(String token, UserDetails userDetails) {
@@ -56,8 +52,8 @@ public class JwtService  {
         return Jwts.builder()
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
-                .subject(user.getId())
-                .claim("username", user.getUsername())
+                .subject(user.getUsername())
+                .claim("userId", user.getId())
                 .claim("role", user.getRole())
                 .claim("email", user.getEmail())
                 .signWith(key)
