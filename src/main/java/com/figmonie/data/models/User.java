@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @Field
     private String lastName;
 
-    @Field
+    @Field()
     private String email;
 
     @Field
