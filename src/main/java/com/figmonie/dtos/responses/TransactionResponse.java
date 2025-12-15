@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class TransactionResponse {
     private String transactionId;
     private BigDecimal amount;
+    private BigDecimal balance;
     private String transactionType;
     private String recipientAccountNumber;
     private String recipientBank;
