@@ -1,10 +1,9 @@
 package com.figmonie.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.figmonie.data.models.BankAccountDetails;
-import com.figmonie.data.models.Role;
-import com.figmonie.data.models.User;
+import com.figmonie.data.models.*;
 import com.figmonie.dtos.request.RegisterRequest;
+import com.figmonie.dtos.request.TransactionRequest;
 import com.figmonie.dtos.responses.TransactionResponse;
 import com.figmonie.dtos.responses.UserResponse;
 
@@ -30,8 +29,25 @@ public class Mapper {
                 .build();
     }
 
-    public static TransactionResponse mapResponse(User user){
+    public static Transaction map(User user, TransactionRequest request, String type) {
+        Transaction transaction = new Transaction();
+        transaction.setUserId(user.getId());
+        transaction.setRecipientAccountNumber(request.getRecipientAccountNumber());
+        transaction.setRecipientBank(request.getRecipientBank());
+        transaction.setAmount(request.getAmount());
+        boolean transactionStatus = false;
+        transaction.setTransactionStatus(!transactionStatus);
+        transaction.setType(TransactionType.valueOf(type));
+
+        return transaction;
+    }
+
+    public static TransactionResponse mapResponse(User user, Transaction transaction) {
         TransactionResponse response = new TransactionResponse();
+        response.setAmount(transaction.getAmount());
+        response.setRecipientAccountNumber(transaction.getRecipientAccountNumber());
+        response.setRecipientBank(transaction.getRecipientBank());
+        response.setBalance(user.getAccount().getBalance());
         return response;
     }
 
