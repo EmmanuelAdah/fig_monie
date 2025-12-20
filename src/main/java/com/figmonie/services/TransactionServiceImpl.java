@@ -53,6 +53,13 @@ public class TransactionServiceImpl implements TransactionService{
         return mapResponse(savedUser, savedTransaction);
     }
 
+    public TransactionResponse deposit(TransactionRequest request) {
+        User user = userService.findById(request.getUserId());
+        BankCode bankCode = BankCode.valueOf(request.getRecipientBank().toUpperCase());
+
+        return new TransactionResponse();
+    }
+
     public void isPasswordValid(String pin, String savedPin){
         if (!passwordEncoder.matches(pin, savedPin))
             throw new InvalidAmountException("Invalid transaction pin");
