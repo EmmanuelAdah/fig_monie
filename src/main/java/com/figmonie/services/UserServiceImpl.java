@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 import static com.figmonie.utils.Mapper.map;
 import static com.figmonie.utils.Validator.isValidAccountNumber;
 
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse setTransactionPin(String userId, String password){
+    public UserResponse setTransactionPin(UUID userId, String password){
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(String userId) {
+    public User findById(UUID userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
@@ -74,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateImage(String userId, String filePath) {
+    public UserResponse updateImage(UUID userId, String filePath) {
         return new UserResponse();
     }
 }

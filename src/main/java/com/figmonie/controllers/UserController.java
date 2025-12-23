@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 import static com.figmonie.utils.Mapper.map;
 import static com.figmonie.utils.Validator.isValidPin;
 
@@ -20,7 +22,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("find/{userId}")
-    public ResponseEntity<UserResponse> findById(@PathVariable String userId) {
+    public ResponseEntity<UserResponse> findById(@PathVariable UUID userId) {
         return ResponseEntity.ok(map(userService.findById(userId)));
     }
 
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/set-pin/{userId}")
-    public ResponseEntity<UserResponse> setTransactionPin(@PathVariable String userId,
+    public ResponseEntity<UserResponse> setTransactionPin(@PathVariable UUID userId,
                                                           @RequestBody SetPinRequest request){
         isValidPin(request.getPin());
         String password = passwordEncoder.encode(request.getPin());
@@ -43,7 +45,7 @@ public class UserController {
     }
 
     @PutMapping("/update/image/{userId}")
-    public ResponseEntity<UserResponse> updateImage(@PathVariable String userId, @RequestBody String filePath){
+    public ResponseEntity<UserResponse> updateImage(@PathVariable UUID userId, @RequestBody String filePath){
         return ResponseEntity.ok(userService.updateImage(userId, filePath));
     }
 }

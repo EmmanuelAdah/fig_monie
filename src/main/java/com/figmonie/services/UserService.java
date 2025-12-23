@@ -7,13 +7,15 @@ import com.figmonie.dtos.request.RegisterRequest;
 import com.figmonie.dtos.responses.UserResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 public interface UserService {
 
     User saveUser(User user);
     UserResponse createAccount(AccountRequest request);
-    UserResponse setTransactionPin(String userId, String pin);
-    User findById(String email);
+    UserResponse setTransactionPin(UUID userId, String pin);
+    User findById(UUID id);
     User findByUsername(String username);
     UserResponse findByAccountNumber(String accountNumber);
-    UserResponse updateImage(String userId, String image);
+    UserResponse updateImage(UUID userId, String image);
 }

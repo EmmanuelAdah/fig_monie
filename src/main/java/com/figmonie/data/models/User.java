@@ -1,49 +1,53 @@
 package com.figmonie.data.models;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     private String firstName;
-
     private String lastName;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String image;
 
+    @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Embedded
-    private Account account;
+    private Account account = new Account();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.name());
-        return Collections.singletonList(simpleGrantedAuthority);
+        if (role == null) {
+            return Collections.emptyList();
+        }
+        return Collections.singletonList(
+                new SimpleGrantedAuthority(role.name())
+        );
     }
 
     @Override
@@ -75,4 +79,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
 }
