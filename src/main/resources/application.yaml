@@ -2,13 +2,20 @@ spring:
   application:
     name: fig_monie
 
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/fig_monie
-
   datasource:
-    username: root
+    url: jdbc:postgresql://localhost:5432/fig_monie
+    username: postgres
     password: Emma007.
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  main:
+    allow-bean-definition-overriding: true
 
   rabbitmq:
     host: localhost
@@ -30,3 +37,6 @@ rabbitmq:
     name: javaguides_exchange
   routing:
     key: javaguides_routing_key
+
+paystack:
+  secret: sk_test_c75dc9ed1681e8da4fde43d6dc46e9a8d6305fb0
