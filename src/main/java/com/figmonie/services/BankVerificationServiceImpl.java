@@ -2,6 +2,7 @@ package com.figmonie.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.figmonie.data.models.BankAccountDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
