@@ -5,6 +5,6 @@ import java.util.UUID;
 
 @Data
 public class AccountRequest {
-    private UUID userId;
+    private String userId;
     private String accountNumber;
 }
