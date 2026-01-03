@@ -1,27 +1,24 @@
 package com.figmonie.data.models;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "transactions")
+@Document(collection = "transactions")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
-    private UUID userId;
+    private String userId;
     private BigDecimal amount;
     private boolean transactionStatus;
     private String recipientAccountNumber;
     private String recipientBank;
 
-    @Enumerated(EnumType.STRING)
     private TransactionType type;
 }
