@@ -13,8 +13,8 @@ public interface UserService {
 
     User saveUser(User user);
     UserResponse createAccount(AccountRequest request);
-    UserResponse setTransactionPin(UUID userId, String pin);
-    User findById(UUID id);
+    UserResponse setTransactionPin(String userId, String pin);
+    User findById(String id);
     User findByUsername(String username);
     UserResponse findByAccountNumber(String accountNumber);
     UserResponse updateImage(UUID userId, String image);

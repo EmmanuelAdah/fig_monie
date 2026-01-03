@@ -22,7 +22,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("find/{userId}")
-    public ResponseEntity<UserResponse> findById(@PathVariable UUID userId) {
+    public ResponseEntity<UserResponse> findById(@PathVariable String userId) {
         return ResponseEntity.ok(map(userService.findById(userId)));
     }
 
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/set-pin/{userId}")
-    public ResponseEntity<UserResponse> setTransactionPin(@PathVariable UUID userId,
+    public ResponseEntity<UserResponse> setTransactionPin(@PathVariable String userId,
                                                           @RequestBody SetPinRequest request){
         isValidPin(request.getPin());
         String password = passwordEncoder.encode(request.getPin());
